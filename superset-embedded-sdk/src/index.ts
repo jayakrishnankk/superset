@@ -60,6 +60,10 @@ export type EmbeddedDashboard = {
   unmount: () => void
   getDashboardPermalink: (anchor: string) => Promise<string>
   getActiveTabs: () => Promise<string[]>
+  getEmbedChartFormDataKey: (
+    chartId: string
+  ) => Promise<{ formDataKey: string; sliceId: number }>
+  getChartSnapshot: (anchor: string) => Promise<string>
 }
 
 /**
@@ -163,12 +167,18 @@ export async function embedDashboard({
   const getScrollSize = () => ourPort.get<Size>('getScrollSize');
   const getDashboardPermalink = (anchor: string) =>
     ourPort.get<string>('getDashboardPermalink', { anchor });
-  const getActiveTabs = () => ourPort.get<string[]>('getActiveTabs')
+  const getActiveTabs = () => ourPort.get<string[]>('getActiveTabs');
+  const getEmbedChartFormDataKey = (chartId: string) =>
+    ourPort.get<string>("getEmbedChartFormDataKey", { chartId });
+  const getChartSnapshot = (anchor: string) =>
+    ourPort.get<string>("getChartSnapshot", anchor);
 
   return {
     getScrollSize,
     unmount,
     getDashboardPermalink,
     getActiveTabs,
+    getEmbedChartFormDataKey,
+    getChartSnapshot,
   };
 }
