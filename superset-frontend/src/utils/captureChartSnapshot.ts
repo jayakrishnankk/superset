@@ -28,7 +28,7 @@ const captureChartSnapshot = (
 
   return domToImage
     .toPng(elementToPrint, {
-      quality: 0.25,
+      quality: 0.95,
       bgcolor: WHITE_BACKGROUND_COLOR,
       filter,
     })

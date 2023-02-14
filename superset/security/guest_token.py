@@ -86,3 +86,6 @@ class GuestUser(AnonymousUserMixin):
         self.roles = roles
         self.resources = token["resources"]
         self.rls = token.get("rls_rules", [])
+
+    def get_user_id(self) -> int or None:
+        return self.id
