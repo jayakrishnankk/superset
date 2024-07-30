@@ -36,7 +36,7 @@ from superset.exceptions import SupersetSecurityException
 from superset.extensions import db
 from superset.models.core import FavStar, FavStarClassName
 from superset.models.dashboard import Dashboard, id_or_slug_filter
-from superset.models.embedded_dashboard import EmbeddedDashboard
+from superset.models.embedded import EmbeddedDashboard
 from superset.models.slice import Slice
 from superset.utils.core import get_user_id
 from superset.utils.dashboard_filter_scopes_converter import copy_filter_scopes
