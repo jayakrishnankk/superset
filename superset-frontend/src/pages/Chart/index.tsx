@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import {
@@ -112,7 +112,12 @@ const getDashboardContextFormData = () => {
   return null;
 };
 
-export default function ExplorePage() {
+type PageProps = {
+  id: string;
+};
+
+// TODO id is not being used here.
+export const ExplorePage: FC<PageProps> = ({ id }: PageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const isExploreInitialized = useRef(false);
   const dispatch = useDispatch();
@@ -158,4 +163,6 @@ export default function ExplorePage() {
     return <Loading />;
   }
   return <ExploreViewContainer />;
-}
+};
+
+export default ExplorePage;

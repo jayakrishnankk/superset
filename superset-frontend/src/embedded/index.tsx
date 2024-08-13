@@ -51,22 +51,48 @@ const LazyDashboardPage = lazy(
     ),
 );
 
-const EmbeddedRoute = () => (
-  <Suspense fallback={<Loading />}>
-    <RootContextProviders>
-      <ErrorBoundary>
-        <LazyDashboardPage idOrSlug={bootstrapData.embedded!.dashboard_id} />
-      </ErrorBoundary>
-      <ToastContainer position="top" />
-    </RootContextProviders>
-  </Suspense>
+const LazyChartPage = lazy(
+  () => import(/* webpackChunkName: "Chart" */ 'src/pages/Chart'),
 );
+
+const EmbeddedDashboardRoute = () =>
+  bootstrapData.embedded!.dashboard_id ? (
+    <Suspense fallback={<Loading />}>
+      <RootContextProviders>
+        <ErrorBoundary>
+          <LazyDashboardPage idOrSlug={bootstrapData.embedded!.dashboard_id} />
+        </ErrorBoundary>
+        <ToastContainer position="top" />
+      </RootContextProviders>
+    </Suspense>
+  ) : (
+    <Suspense fallback={<Loading />} />
+  );
+
+// TODO refactor this better
+const EmbeddedChartRoute = () =>
+  bootstrapData.embedded!.chart_id ? (
+    <Suspense fallback={<Loading />}>
+      <RootContextProviders>
+        <ErrorBoundary>
+          <LazyChartPage id={bootstrapData.embedded!.chart_id} />
+        </ErrorBoundary>
+        <ToastContainer position="top" />
+      </RootContextProviders>
+    </Suspense>
+  ) : (
+    <Suspense fallback={<Loading />} />
+  );
 
 const EmbeddedApp = () => (
   <Router>
-    {/* todo (embedded) remove this line after uuids are deployed */}
-    <Route path="/dashboard/:idOrSlug/embedded/" component={EmbeddedRoute} />
-    <Route path="/embedded/:uuid/" component={EmbeddedRoute} />
+    {/* backward compatibility support */}
+    <Route path="/embedded/:uuid/" component={EmbeddedDashboardRoute} />
+    <Route
+      path="/embedded/dashboard/:uuid/"
+      component={EmbeddedDashboardRoute}
+    />
+    <Route path="/embedded/chart/:uuid/" component={EmbeddedChartRoute} />
   </Router>
 );
 

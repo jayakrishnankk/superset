@@ -45,8 +45,10 @@ import {
   LOG_ACTIONS_CHART_DOWNLOAD_AS_XLS,
 } from 'src/logger/LogUtils';
 import ViewQueryModal from '../controls/ViewQueryModal';
+// TODO remove EmbedCodeContent source code
 import EmbedCodeContent from '../EmbedCodeContent';
 import DashboardsSubMenu from './DashboardsSubMenu';
+import ChartEmbedControls from '../ChartEmbedControls';
 
 const MENU_KEYS = {
   EDIT_PROPERTIES: 'edit_properties',
@@ -377,18 +379,15 @@ export const useExploreAdditionalActionsMenu = (
             <Menu.Item key={MENU_KEYS.EMBED_CODE}>
               <ModalTrigger
                 triggerNode={
-                  <span data-test="embed-code-button">{t('Embed code')}</span>
+                  <span data-test="embed-code-button">{t('Embed')}</span>
                 }
-                modalTitle={t('Embed code')}
-                modalBody={
-                  <EmbedCodeContent
-                    formData={latestQueryFormData}
-                    addDangerToast={addDangerToast}
-                  />
-                }
+                modalTitle={t('Embed')}
+                modalBody={<ChartEmbedControls chart={chart} />}
                 maxWidth={`${theme.gridUnit * 100}px`}
                 destroyOnClose
                 responsive
+                draggable
+                resizable
               />
             </Menu.Item>
           ) : null}
