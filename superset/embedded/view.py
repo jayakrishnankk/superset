@@ -58,10 +58,10 @@ class EmbeddedView(BaseSupersetView):
         if not is_referrer_allowed:
             abort(403)
 
-            # Log in as an anonymous user, just for this view.
-            # This view needs to be visible to all users,
-            # and building the page fails if g.user and/or ctx.user aren't present.
-            login_user(AnonymousUserMixin(), force=True)
+        # Log in as an anonymous user, just for this view.
+        # This view needs to be visible to all users,
+        # and building the page fails if g.user and/or ctx.user aren't present.
+        login_user(AnonymousUserMixin(), force=True)
 
         return embedded
 
