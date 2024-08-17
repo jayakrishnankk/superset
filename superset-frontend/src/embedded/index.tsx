@@ -86,13 +86,11 @@ const EmbeddedChartRoute = () =>
 
 const EmbeddedApp = () => (
   <Router>
-    {/* backward compatibility support */}
-    <Route path="/embedded/:uuid/" component={EmbeddedDashboardRoute} />
+    <Route path="/embedded/chart/:uuid/" component={EmbeddedChartRoute} />
     <Route
-      path="/embedded/dashboard/:uuid/"
+      path={['/embedded/:uuid/', '/embedded/dashboard/:uuid/']}
       component={EmbeddedDashboardRoute}
     />
-    <Route path="/embedded/chart/:uuid/" component={EmbeddedChartRoute} />
   </Router>
 );
 
